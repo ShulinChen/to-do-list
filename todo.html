@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Shulin's to-do-list</title>
+  <title>Shulin's to-do-list</title>
 <!-- 	<link rel="stylesheet" type="text/css" href="normalize.css"> -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		//non-conflict mode, for safety's sake
-		jQuery(function($){
-			//add a plugin method named addToDoList
-			jQuery.fn.addToDoList=function(){
-			 	//to set up the basic row of the to-do-list
-				var constructor = '<div class="eachList">' 
-														+ '<form id="formAdd" method="post">'
-															+	'<input type="text" name="eachItem" id="eachItem" placeholder="Description">'
-															+	'<input type="submit" id="submit" value="Add to List">'
-														+	'</form>'
-														+	'<ul class="list"> </ul>'
-													+	'</div>';
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    //non-conflict mode, for safety's sake
+    jQuery(function($){
+      //add a plugin method named addToDoList
+      jQuery.fn.addToDoList=function(){
+         //to set up the basic row of the to-do-list
+        var constructor = '<div class="eachList">' 
+                            + '<form id="formAdd" method="post">'
+                              +	'<input type="text" name="eachItem" id="eachItem" placeholder="Description">'
+                              +	'<input type="submit" id="submit" value="Add to List">'
+                            +	'</form>'
+                            +	'<ul class="list"> </ul>'
+                          +	'</div>';
 
-				//insert the constructor(html snippet) to the DOM 
-				$(this).prepend(constructor); 
+        //insert the constructor(html snippet) to the DOM 
+        $(this).prepend(constructor); 
 
-				//submit event
-				$("#formAdd").on("submit", function(event){
+        //submit event
+        $("#formAdd").on("submit", function(event){
 	
-					//prevent the default action of submit to jump to another page
-					event.preventDefault();
-					
-					//declaration. .val() works on input elements, while .text() will not.
-					var content = $("#eachItem").val();
-					
-					//if the "Description text is empty", alert
-					if (!content){
-						alert("Sorry, can't add empty item.")
-					}
-					//else add it to the list and show it
-					else{
-						//first transform the content into a list
-						var contentInList = $("<li>").text(content);
-						//insert it into the list 
-						contentInList.hide()
-												 .prependTo('.list')			
-												 .fadeIn();
-					}
+          //prevent the default action of submit to jump to another page
+          event.preventDefault();
+	
+          //declaration. .val() works on input elements, while .text() will not.
+          var content = $("#eachItem").val();
+	
+          //if the "Description text is empty", alert
+          if (!content){
+            alert("Sorry, can't add empty item.")
+          }
+          //else add it to the list and show it
+          else{
+            //first transform the content into a list
+            var contentInList = $("<li>").text(content);
+            //insert it into the list 
+            contentInList.hide()
+                         .prependTo('.list')			
+                         .fadeIn();
+          }
 
-					//remove the contents in the form
-					$("#eachItem").val("")
-												.focus();
+          //remove the contents in the form
+          $("#eachItem").val("")
+                        .focus();
 
-				});//end of submit event function.
+        });//end of submit event function.
 
-				//implementation of deleting lists
-				//using event delegation to affect all the lists that might be added later on.
-				$(".list").on("mouseenter", "li", function(){
-					$("<button> Done! </button>")
-					.hide()
-					.appendTo($(this))
-					.fadeIn();
+        //implementation of deleting lists
+        //using event delegation to affect all the lists that might be added later on.
+        $(".list").on("mouseenter", "li", function(){
+          $("<button> Done! </button>")
+          .hide()
+          .appendTo($(this))
+          .fadeIn();
 
-					$("button").on("click", function(){
-						$(this).closest("li").fadeOut();
+          $("button").on("click", function(){
+            $(this).closest("li").fadeOut();
 
-					});
-				})
+          });
+        })
 
-				.on("mouseleave", "li", function(){
-					$(this).children("button").remove();
-				});
+        .on("mouseleave", "li", function(){
+          $(this).children("button").remove();
+        });
 
-			}//end of addToDoList function
-		
-			$(".todolist").addToDoList();
+      }//end of addToDoList function
+	
+      $(".todolist").addToDoList();
 
-		}); //end of non-conflict function
-	</script>
+    }); //end of non-conflict function
+  </script>
 </head>
 
 <body>
-	<div class="todolist">
+  <div class="todolist">
 
-	</div>
+  </div>
 </body>
 
 </html>
